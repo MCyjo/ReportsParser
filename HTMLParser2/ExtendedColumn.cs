@@ -11,7 +11,21 @@ namespace HTMLParser2
     public class ExtendedColumn : DataColumn
     {
         private double? lowlimit;
+        public double? Lowlimit
+        {
+            get
+            {
+                return lowlimit;
+            }
+        }
         private double? highlimit;
+        public double? Highlimit
+        {
+            get
+            {
+                return highlimit;
+            }
+        }
 
         public ExtendedColumn(string str) : base(str)
         {

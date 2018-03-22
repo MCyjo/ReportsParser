@@ -44,7 +44,7 @@ namespace HTMLParser2
 
         private void dataGridView1_ColumnHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
-            ChartForm chartForm = new ChartForm(reportAnalysis.reports, dataGridView1, e);
+            ChartForm chartForm = new ChartForm(reportAnalysis.reports, dataGridView1, e, reportAnalysis.dataTable);
             chartForm.Show();
         }
     }
