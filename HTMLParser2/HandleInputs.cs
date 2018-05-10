@@ -19,7 +19,7 @@ namespace HTMLParser2
         }
 
         public List<string> textFromReport;
-
+        public List<string> fileNames;
 
         Main mainForm;
         
@@ -28,6 +28,7 @@ namespace HTMLParser2
         {
             mainForm = main;
             textFromReport = new List<string>();
+            fileNames = new List<string>(); 
         }
 
         public void LoadReport()
@@ -42,16 +43,9 @@ namespace HTMLParser2
             {
                 foreach(string file in openFileDialog1.FileNames)
                 {
-                    try
-                    {
-                        textFromReport.Add(System.IO.File.ReadAllText(file));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                    }
+                    fileNames.Add(file);
                 }
-                
+               
             }
         }
 

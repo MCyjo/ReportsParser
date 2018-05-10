@@ -193,76 +193,45 @@ namespace HTMLParser2
 
             }
 
-            /*
-            try
-            {
-                double max = measurements.Max();
-                double min = measurements.Min();
-                double lL, uL;
-
-
-                if (upperLimit != null)
-                {
-                    uL = (double)upperLimit;
-                    chart1.ChartAreas[0].AxisY.Maximum = uL + (0.1 * uL);
-                    if (max > uL)
-                    {
-                        chart1.ChartAreas[0].AxisY.Maximum = max + (0.1 * max);
-                    }
-                    if (uL<min)
-                    {
-                        chart1.ChartAreas[0].AxisY.Maximum = uL - (0.1 * uL);
-                    }
-                }
-                else
-                {
-                    chart1.ChartAreas[0].AxisY.Maximum = max + (0.1 * max);
-                }
-                if (lowerLimit != null)
-                {
-                    lL = (double)lowerLimit;
-                    chart1.ChartAreas[0].AxisY.Minimum = min- (0.1 * max);
-                    if (min<lL)
-                    {
-                        chart1.ChartAreas[0].AxisY.Minimum = min - (0.1 * max);
-                    }
-                    if(lL>max)
-                    {
-                        chart1.ChartAreas[0].AxisY.Maximum = lL + (0.1 * lL);
-                    }
-                }
-                else
-                {
-                    chart1.ChartAreas[0].AxisY.Minimum = min - (0.1 * max);
-                }
-
-      
-
-                chart1.ChartAreas[columnName].AxisY.Minimum = measurements.Min() - (0.1 * measurements.Min());
-                MessageBox.Show("ul: " + upperLimit + Environment.NewLine +
-                                 "lL:  " + lowerLimit + Environment.NewLine +
-                                 "max:  " + max + Environment.NewLine+
-                                 "min:  " + min + Environment.NewLine);
-            }
-            catch
-            {
-
-            }
-            */
+            
         }
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
-            Point mousePoint = new Point(e.X, e.Y);
-            chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
-            chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+            try
+            {
+                Point mousePoint = new Point(e.X, e.Y);
+                chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
+                chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
 
-            label3.Text = "Y: " + Math.Round(chart1.ChartAreas[0].AxisY.PixelPositionToValue(e.Y),3).ToString();
-            //label4.Text = "Y: " + Math.Round(chart1.ChartAreas[0].AxisY.PixelPositionToValue(e.Y),2).ToString();
-            DateTime now = DateTime.FromOADate(chart1.ChartAreas[0].AxisX.PixelPositionToValue(e.X));
-            label4.Text = "X: " + now.ToString();
+                label3.Text = "Value: " + Math.Round(chart1.ChartAreas[0].AxisY.PixelPositionToValue(e.Y), 3).ToString();
+                DateTime now = DateTime.FromOADate(chart1.ChartAreas[0].AxisX.PixelPositionToValue(e.X));
+                label4.Text = "DateTime: " + now.ToString();
 
-            HitTestResult result = chart1.HitTest(e.X, e.Y);
+                HitTestResult result = chart1.HitTest(e.X, e.Y);
+            }
+            catch
+            {
+                label3.Text = String.Empty;
+                label4.Text = String.Empty;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.DefaultExt = ".jpeg";
+            saveFileDialog.AddExtension = true;
+
+            if(!saveFileDialog.FileName.EndsWith(".jpeg"))
+            {
+                saveFileDialog.FileName += ".jpeg";
+            }
+
+            if(saveFileDialog.ShowDialog()==DialogResult.OK)
+                {
+                chart1.SaveImage(saveFileDialog.FileName, ChartImageFormat.Jpeg);
+                }
         }
     }
 

@@ -62,18 +62,31 @@ namespace HTMLParser2
 
         public void setDateTime()
         {
+            try
+            {
+                if (!date.Contains('-'))
+            {
+                date = ReportAnalysis.changeDateFormatPol(date);
+            }
+
             string[] dates = date.Split('-');
             string[] times = time.Split(':');
 
-            int y = int.Parse(dates[0]);
-            int m = int.Parse(dates[1]);
-            int d = int.Parse(dates[2]);
+            
+                int y = int.Parse(dates[0]);
+                int m = int.Parse(dates[1]);
+                int d = int.Parse(dates[2]);
 
-            int h = int.Parse(times[0]);
-            int min = int.Parse(times[1]);
-            int s = int.Parse(times[2]);
+                int h = int.Parse(times[0]);
+                int min = int.Parse(times[1]);
+                int s = int.Parse(times[2]);
 
-            dateTime = new DateTime(y, m, d, h, min, s);
+                dateTime = new DateTime(y, m, d, h, min, s);
+            }
+            catch
+            {
+                dateTime = new DateTime(1, 1, 1, 1, 1, 1);
+            }
         }
 
     }
